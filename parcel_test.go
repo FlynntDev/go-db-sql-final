@@ -41,7 +41,7 @@ func TestAddGetDelete(t *testing.T) {
 	// add
 	// добавьте новую посылку в БД, убедитесь в отсутствии ошибки и наличии идентификатора
 	res, err := store.Add(parcel)
-	require.Nil(t, err, "error not nil")
+	require.NoError(t, err, "error not nil")
 	assert.NotNil(t, res, "id not found")
 
 	// get
@@ -61,7 +61,6 @@ func TestAddGetDelete(t *testing.T) {
 	err = store.Delete(id)
 	require.NoError(t, err)
 	_, err = store.Get(id)
-	require.Error(t, err)
 	require.Error(t, err, sql.ErrNoRows)
 
 }
@@ -78,7 +77,7 @@ func TestSetAddress(t *testing.T) {
 	// add
 	// добавьте новую посылку в БД, убедитесь в отсутствии ошибки и наличии идентификатора
 	res, err := store.Add(parcel)
-	require.Nil(t, err, "error not nil")
+	require.NoError(t, err, "error not nil")
 	assert.NotNil(t, res, "id not found")
 
 	// set address
@@ -86,7 +85,7 @@ func TestSetAddress(t *testing.T) {
 	newAddress := "new test address"
 
 	err = store.SetAddress(res, newAddress)
-	require.Nil(t, err, "error not nil")
+	require.NoError(t, err, "error not nil")
 
 	// check
 	// получите добавленную посылку и убедитесь, что адрес обновился
@@ -106,14 +105,14 @@ func TestSetStatus(t *testing.T) {
 	// add
 	// добавьте новую посылку в БД, убедитесь в отсутствии ошибки и наличии идентификатора
 	res, err := store.Add(parcel)
-	require.Nil(t, err, "error not nil")
+	require.NoError(t, err, "error not nil")
 	assert.NotNil(t, res, "id not found")
 
 	// set status
 	// обновите статус, убедитесь в отсутствии ошибки
 	newStatus := "sent"
 	err = store.SetStatus(res, newStatus)
-	require.Nil(t, err, "error not nil")
+	require.NoError(t, err, "error not nil")
 
 	// check
 	// получите добавленную посылку и убедитесь, что статус обновился
